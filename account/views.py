@@ -1,0 +1,38 @@
+from django.shortcuts import render,redirect,HttpResponse
+
+from django.contrib.auth import login,authenticate, logout
+# Create your views here.
+def home (request):
+    if request.user.is_authenticated:
+        user = request.user
+        return redirect('profile')
+    else:
+        return redirect('login')
+
+def loginUser(request):
+    if request.method=='POST':
+        username=request.POST.get('email')
+        password=request.POST.get('pass')
+        user = authenticate(username=username,password=password)
+        if user:
+            login(request,user)
+            if user.user_type=='1':
+                return redirect('home')
+            if user.user_type=='2':
+                return HttpResponse('satff')
+            if user.user_type=='3':
+                return HttpResponse('user.user_type')
+        else:
+            return redirect('login')
+    return render(request,'login.html')
+
+def update_profile(request):
+    user = request.user
+    return render(request,'updateprofile.html',locals())
+def profile(request):
+    user = request.user
+    return render(request,'profile.html',locals())
+
+def log_out(request):
+    logout(request)
+    return redirect('login')
