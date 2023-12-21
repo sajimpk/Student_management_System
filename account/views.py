@@ -10,6 +10,8 @@ def home (request):
         return redirect('login')
 
 def loginUser(request):
+    if request.user.is_authenticated:
+        return redirect('profile')
     if request.method=='POST':
         username=request.POST.get('email')
         password=request.POST.get('pass')

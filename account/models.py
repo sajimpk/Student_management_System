@@ -12,6 +12,7 @@ class CoustomUser(AbstractUser):
     user_type =models.CharField(choices=USER,max_length=20)
     profile_pic = models.ImageField(upload_to='profile_pic/',default='1.jpeg')
     
+
 class deparment(models.Model):
     name = models.CharField(max_length=30)
     def __str__(self) -> str:

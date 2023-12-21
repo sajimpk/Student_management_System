@@ -18,7 +18,13 @@
                     <h5 class="card-title"><strong>Student  Deteils</strong></h5>
                 </div>
                 <div class="card-body">
-                    <form action="#" method="post" enctype="multipart/form-data">
+                    {% if messages %}
+                {% for message in messages %}
+                    <h2 style="color:red; text-align: center;" class="{{ message.tags }}">{{ message }}</h2>
+                {% endfor %}
+            {% endif %}
+                    <form  method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
                         <div class="form-group row">
                             <label class="col-form-label col-md-2">First Name</label>
                             <div class="col-md-10">
@@ -100,7 +106,7 @@
                                 <select class="form-control" name="Deparment">
                                     <option disabled selected>-- Select --</option>
                                     {% for i in dpr %}
-                                    <option value="{{i.name}}">{{i.name}}</option>
+                                    <option value="{{i.id}}">{{i.name}}</option>
                                     {% endfor %}
                                   
                                 </select>
@@ -112,7 +118,7 @@
                                 <select class="form-control" name="sess">
                                     <option disabled selected>-- Select --</option>
                                     {% for i in ses %}
-                                    <option value="{{i.name}}">{{i.name}}</option>
+                                    <option value="{{i.id}}">{{i.name}}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -123,7 +129,7 @@
                                 <select class="form-control" name="Semister">
                                     <option disabled selected>-- Select --</option>
                                     {% for i in semi %}
-                                    <option value="{{i.name}}">{{i.name}}</option>
+                                    <option value="{{i.id}}">{{i.name}}</option>
                                     {% endfor %}
                                 </select>
                             </div>
