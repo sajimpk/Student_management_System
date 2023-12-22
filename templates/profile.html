@@ -17,7 +17,7 @@
          <div class="profile-header">
             <div class="row align-items-center">
                <div class="col-auto profile-image">
-                  <a href="#">
+                  <a href="{{user.profile_pic.url}}">
                      <img class="rounded-circle" alt="User Image" src="{{user.profile_pic.url}}">
                   </a>
                </div>
@@ -25,14 +25,18 @@
                   <h4 class="user-name mb-0">{{user.first_name}} {{user.last_name}}</h4>
                   {% if user.user_type == '1' %}
                   <h6 class="text-muted">Head of Depertment</h6>
+
                    {% elif user.user_type == '2' %}
                    <h6 class="text-muted">Staff</h6>
+                   <div class="user-Location"><i class="fas fa-map-marker-alt"></i> {{detel.Address}}</div>
+                  <div class="about-text"><a href="tel:+{{detel.phone}}">{{detel.phone}}</a></div>
+
                    {% elif user.user_type == '3' %}
                    <h6 class="text-muted">Student</h6>
-                   {% endif %}
-                  
-                  <div class="user-Location"><i class="fas fa-map-marker-alt"></i> Florida, United States</div>
-                  <div class="about-text">Lorem ipsum dolor sit amet.</div>
+                  <div class="user-Location"><i class="fas fa-map-marker-alt"></i> {{detel.Address}}</div>
+                  <div class="about-text"><a href="tel:+{{detel.phone}}">{{detel.phone}}</a></div>
+                  {% endif %}
+
                </div>
                <div class="col-auto profile-btn">
                   <a href="#" class="btn btn-primary">
@@ -67,29 +71,48 @@
                               <p class="col-sm-9">{{user.first_name}} {{user.last_name}}</p>
                            </div>
                            <div class="row">
-                              <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Date of Birth</p>
-                              <p class="col-sm-9">24 Jul 1983</p>
-                           </div>
-                           <div class="row">
                               <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Email ID</p>
-                              <p class="col-sm-9"><a
-                                    href="https://preschool.dreamguystech.com/cdn-cgi/l/email-protection"
-                                    class="__cf_email__"
-                                    data-cfemail="711b1e191f151e14311409101c011d145f121e1c">[email&#160;protected]</a>
+                              <p class="col-sm-9"><a>{{user.email}}</a>
                               </p>
                            </div>
+                           {% if user.user_type == '2' %}
                            <div class="row">
-                              <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Mobile</p>
-                              <p class="col-sm-9">305-310-5857</p>
+                              <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Staff id</p>
+                              <p class="col-sm-9">{{detel.roll}} emp</p>
+                           </div>
+                           {% endif %}
+                           {% if user.user_type == '3' %}
+                           <div class="row">
+                              <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Father name</p>
+                              <p class="col-sm-9">{{detel.father_name}}</p>
                            </div>
                            <div class="row">
-                              <p class="col-sm-3 text-muted text-sm-right mb-0">Address</p>
-                              <p class="col-sm-9 mb-0">4663 Agriculture Lane,<br>
-                                 Miami,<br>
-                                 Florida - 33165,<br>
-                                 United States.
-                              </p>
+                              <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Mother name</p>
+                              <p class="col-sm-9">{{detel.mother_name}}</p>
                            </div>
+                           
+                           <div class="row">
+                              <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">father Mobile</p>
+                              <p class="col-sm-9">{{detel.father_num}}</p>
+                           </div>
+                           <div class="row">
+                              <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Semister</p>
+                              <p class="col-sm-9">{{detel.Semister}}</p>
+                           </div>
+                           <div class="row">
+                              <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Depertment</p>
+                              <p class="col-sm-9">{{detel.Deparment}}</p>
+                           </div>
+                           
+                           <div class="row">
+                              <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Sessoen</p>
+                              <p class="col-sm-9">{{detel.sess}}</p>
+                           </div>
+                           <div class="row">
+                              <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Student Roll</p>
+                              <p class="col-sm-9">{{detel.roll}}</p>
+                           </div>
+                           {% endif %}
                         </div>
                      </div>
                   </div>

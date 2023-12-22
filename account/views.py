@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect,HttpResponse
-
+from student.models import student
 from django.contrib.auth import login,authenticate, logout
 # Create your views here.
 def home (request):
@@ -23,7 +23,7 @@ def loginUser(request):
             if user.user_type=='2':
                 return HttpResponse('satff')
             if user.user_type=='3':
-                return HttpResponse('user.user_type')
+                return redirect('home')
         else:
             return redirect('login')
     return render(request,'login.html')
@@ -33,6 +33,10 @@ def update_profile(request):
     return render(request,'updateprofile.html',locals())
 def profile(request):
     user = request.user
+    try:
+        detel = student.objects.get(admin=user)
+    except:
+        None
     return render(request,'profile.html',locals())
 
 def log_out(request):
