@@ -1,7 +1,9 @@
 from django.shortcuts import render,redirect,HttpResponse
 from student.models import student
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login,authenticate, logout
 # Create your views here.
+@login_required(login_url='login')
 def home (request):
     if request.user.is_authenticated:
         user = request.user
@@ -28,9 +30,12 @@ def loginUser(request):
             return redirect('login')
     return render(request,'login.html')
 
+@login_required(login_url='login')
 def update_profile(request):
     user = request.user
     return render(request,'updateprofile.html',locals())
+
+@login_required(login_url='login')
 def profile(request):
     user = request.user
     try:
@@ -39,6 +44,7 @@ def profile(request):
         None
     return render(request,'profile.html',locals())
 
+@login_required(login_url='login')
 def log_out(request):
     logout(request)
     return redirect('login')

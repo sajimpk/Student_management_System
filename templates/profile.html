@@ -4,11 +4,17 @@
    <div class="page-header">
       <div class="row">
          <div class="col">
+            {% if messages %}
+                {% for message in messages %}
+                    <h2 style="color:red; text-align: center;" class="{{ message.tags }}">{{ message }}</h2>
+                {% endfor %}
+            {% else %}
             <h3 class="page-title">Profile</h3>
             <ul class="breadcrumb">
-               <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+               <li class="breadcrumb-item"><a>Dashboard</a></li>
                <li class="breadcrumb-item active">Profile</li>
             </ul>
+            {% endif %}
          </div>
       </div>
    </div>

@@ -58,9 +58,6 @@
                         <div class="form-group row">
                             <label class="col-form-label col-md-2">image</label>
                             <div class="col-md-10">
-                                {% if detel.admin.profile_pic %}
-                                <a href="{{detel.admin.profile_pic.url}}">see old image</a>
-                                {% endif %}
                                 <input class="form-control" type="file" name="image" accept="image">
                             </div>
                         </div>
@@ -100,6 +97,41 @@
                             <label class="col-form-label col-md-2">Address</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="Address" value="{{detel.Address}}">
+                            </div>
+                        </div>
+                        <h2 style="text-align: center; padding: 5px;">if you want to change then do</h2>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Deparment</label>
+                            <div class="col-md-10">
+                                <select class="form-control" name="Deparment">
+                                    <option disabled selected>-- Select --</option>
+                                    {% for i in dpr %}
+                                    <option value="{{i.id}}">{{i.name}}</option>
+                                    {% endfor %}
+                                  
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">sesson</label>
+                            <div class="col-md-10">
+                                <select class="form-control" name="sess">
+                                    <option disabled selected>-- Select --</option>
+                                    {% for i in ses %}
+                                    <option value="{{i.id}}">{{i.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Semister</label>
+                            <div class="col-md-10">
+                                <select class="form-control" name="Semister">
+                                    <option disabled selected>-- Select --</option>
+                                    {% for i in semi %}
+                                    <option value="{{i.id}}">{{i.name}}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row">

@@ -2,92 +2,23 @@ from django.shortcuts import render,redirect
 from django.contrib import messages
 from account.models import deparment,semister,sesson,CoustomUser
 from .models import student
+from django.contrib.auth.decorators import login_required
 import os
 
 # Create your views here.
+@login_required(login_url='login')
 def add_student(request):
-    user = request.user
-    dpr = deparment.objects.all()
-    semi = semister.objects.all()
-    ses = sesson.objects.all()
-    if request.method=='POST':
-        fr_name = request.POST.get('frist_name')
-        la_name = request.POST.get('last_name')
-        email = request.POST.get('email')
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        image = request.FILES.get('image')
-        phone = request.POST.get('phone')
-        roll = request.POST.get('roll')
-        father_name = request.POST.get('father_name')
-        father_num = request.POST.get('father_num')
-        mother_name = request.POST.get('mother_name')
-        Address = request.POST.get('Address')
-        Deparment_id = request.POST.get('Deparment')
-        sess_id = request.POST.get('sess')
-        Semister_id = request.POST.get('Semister')
-        if CoustomUser.objects.filter(email = email).exists():
-            messages.success(request, " Email Already Taken.")
-            return redirect('add_student')
-        elif CoustomUser.objects.filter(username=username).exists():
-            messages.success(request, " Username Already Taken.")
-            return redirect('add_student')
-        else:
-            admin = CoustomUser(
-                first_name = fr_name,
-                last_name = la_name,
-                username = username,
-                email = email,
-                profile_pic =image,
-                user_type = "3",
-                password = password,
-            )
-            admin.set_password(password)
-            admin.save()
-
-            sem = semister.objects.get ( id = Semister_id)
-            Dep = deparment.objects.get(id = Deparment_id)
-            ses= sesson.objects.get(id = sess_id)
-
-            students = student.objects.create(
-                admin = admin,
-                phone = phone,
-                roll = roll,
-                father_name = father_name,
-                father_num = father_num,
-                mother_name = mother_name,
-                Address = Address,
-                Deparment = Dep,
-                sess = ses,
-                Semister = sem,
-            )
-            students.save()
-            
-            messages.success(request, "Student added")
-            return redirect(request.META['HTTP_REFERER'])
-
-    return render(request,'student/add.html',locals())
-
-def student_view(request):
-    try:
-        detel = student.objects.all()
-    except:
-        None
-    return render(request,'student/students.html',locals())
-
-def student_update(request,id):
-    dpr = deparment.objects.all()
-    semi = semister.objects.all()
-    ses = sesson.objects.all()
-    detel = student.objects.get(id=id)
-    try:
-        
+    if request.user.user_type=='1':
+        user = request.user
+        dpr = deparment.objects.all()
+        semi = semister.objects.all()
+        ses = sesson.objects.all()
         if request.method=='POST':
             fr_name = request.POST.get('frist_name')
             la_name = request.POST.get('last_name')
             email = request.POST.get('email')
             username = request.POST.get('username')
-            passw = request.POST.get('password')
+            password = request.POST.get('password')
             image = request.FILES.get('image')
             phone = request.POST.get('phone')
             roll = request.POST.get('roll')
@@ -95,28 +26,157 @@ def student_update(request,id):
             father_num = request.POST.get('father_num')
             mother_name = request.POST.get('mother_name')
             Address = request.POST.get('Address')
-            if detel:
-                detel.phone = phone
-                detel.roll = roll
-                detel.father_name = father_name
-                detel.father_num = father_num
-                detel.mother_name = mother_name
-                detel.Address=Address
-                detel.admin.first_name = fr_name
-                detel.admin.last_name = la_name
-                detel.admin.email = email
-                detel.admin.username =username
-                if passw:
-                    detel.admin.password = passw
-                    messages.success(request, "passs update")
+            Deparment_id = request.POST.get('Deparment')
+            sess_id = request.POST.get('sess')
+            Semister_id = request.POST.get('Semister')
+            if CoustomUser.objects.filter(email = email).exists():
+                messages.success(request, " Email Already Taken.")
+                return redirect('add_student')
+            elif CoustomUser.objects.filter(username=username).exists():
+                messages.success(request, " Username Already Taken.")
+                return redirect('add_student')
+            else:
+                admin = CoustomUser(
+                    first_name = fr_name,
+                    last_name = la_name,
+                    username = username,
+                    email = email,
+                    user_type = "3",
+                    password = password,
+                )
                 if image:
-                    os.remove(detel.admin.profile_pic.path)
-                    detel.admin.profile_pic = image
+                    admin.profile_pic=image
+                admin.set_password(password)
+                admin.save()
 
-                detel.admin.save()
-                detel.save()
-                messages.success(request, "Student update")
+                sem = semister.objects.get ( id = Semister_id)
+                Dep = deparment.objects.get(id = Deparment_id)
+                sese= sesson.objects.get(id = sess_id)
+
+                students = student.objects.create(
+                    admin = admin,
+                    phone = phone,
+                    roll = roll,
+                    father_name = father_name,
+                    father_num = father_num,
+                    mother_name = mother_name,
+                    Address = Address,
+                    Deparment = Dep,
+                    sess = sese,
+                    Semister = sem,
+                )
+                students.save()
+                
+                messages.success(request, "Student added")
+                return redirect(request.META['HTTP_REFERER'])
+    else:
+        messages.success(request, "You can't access ")
+        return redirect('home')
+    return render(request,'student/add.html',locals())
+
+@login_required(login_url='login')
+def student_view(request):
+    if request.user.user_type=='1':
+
+        if request.method == 'GET':
+            src = request.GET.get('search')
+            if src:
+                detel = student.objects.filter(phone__icontains=src)
+                if detel:
+                    pass
+                else:
+                    detel = student.objects.filter(father_name__icontains=src)
+            elif src==None:
+                detel = student.objects.all()
+            else:
+                detel = student.objects.all()
+
+        return render(request,'student/students.html',locals())
+    else:
+        messages.success(request, "You can't access ")
+        return redirect('home')
+    
+@login_required(login_url='login')
+def student_update(request,id):
+    if request.user.user_type=='1':
+        dpr = deparment.objects.all()
+        semi = semister.objects.all()
+        ses = sesson.objects.all()
+        detel = student.objects.get(id=id)
+        try:
             
-    except Exception as r:
-        messages.success(request, r)
+            if request.method=='POST':
+                fr_name = request.POST.get('frist_name')
+                la_name = request.POST.get('last_name')
+                email = request.POST.get('email')
+                username = request.POST.get('username')
+                passw = request.POST.get('password')
+                image = request.FILES.get('image')
+                phone = request.POST.get('phone')
+                roll = request.POST.get('roll')
+                father_name = request.POST.get('father_name')
+                father_num = request.POST.get('father_num')
+                mother_name = request.POST.get('mother_name')
+                Address = request.POST.get('Address')
+
+                Deparment_id = request.POST.get('Deparment')
+                sess_id = request.POST.get('sess')
+                Semister_id = request.POST.get('Semister')
+                
+                
+                
+
+                if detel:
+                    detel.phone = phone
+                    detel.roll = roll
+                    detel.father_name = father_name
+                    detel.father_num = father_num
+                    detel.mother_name = mother_name
+                    detel.Address=Address
+                    detel.admin.first_name = fr_name
+                    detel.admin.last_name = la_name
+                    detel.admin.email = email
+                    detel.admin.username =username
+                    if passw:
+                        detel.admin.password = passw
+                        detel.admin.set_password(passw)
+                        messages.success(request, "Password update")
+                    if image:
+                        os.remove(detel.admin.profile_pic.path)
+                        detel.admin.profile_pic = image
+                    if Deparment_id:
+                        Dep = deparment.objects.get(id = Deparment_id)
+                        detel.Deparment = Dep
+                    if sess_id:
+                        sesen= sesson.objects.get(id = sess_id)
+                        detel.sess = sesen
+                    if Semister_id:
+                        sem = semister.objects.get ( id = Semister_id)
+                        detel.Semister = sem
+                    detel.admin.save()
+                    detel.save()
+                    messages.success(request, "Student update")
+                
+        except Exception as r:
+            messages.success(request, r)
+    else:
+        messages.success(request, "You can't access ")
+        return redirect('home')
     return render(request,'student/update.html',locals())
+
+def student_delete(request,id):
+    if request.user.user_type=='1':
+        user = student.objects.get(id = id)
+        if user.admin.profile_pic:
+            if user.admin.profile_pic == '1.jpeg':
+                pass
+            else:
+                os.remove(user.admin.profile_pic.path)
+        user.admin.delete()
+        user.delete()
+    else:
+        messages.success(request, "You can't access ")
+        return redirect('home')
+    return redirect('student_view')
+
+
