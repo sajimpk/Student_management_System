@@ -174,6 +174,7 @@ def student_delete(request,id):
                 os.remove(user.admin.profile_pic.path)
         user.admin.delete()
         user.delete()
+        messages.success(request, "Student delete success")
     else:
         messages.success(request, "You can't access ")
         return redirect('home')

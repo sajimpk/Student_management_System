@@ -16,13 +16,16 @@
          <div class="login-wrapper">
             <div class="container">
                <div class="loginbox">
+                  
                   <div class="login-left">
                      <img class="img-fluid" src="{% static 'assets/img/logo-white.png ' %}" alt="Logo">
                   </div>
                   <div class="login-right">
+                     
                      <div class="login-right-wrap">
                         <h1>Login</h1>
                         <p class="account-subtitle">Access to our dashboard</p>
+                        {% include 'includes/massege.html'%}
                         <form action="" method="POST">
                            {% csrf_token %}
                            <div class="form-group">

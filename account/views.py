@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect,HttpResponse
 from student.models import student
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login,authenticate, logout
+from django.contrib import messages
 # Create your views here.
 @login_required(login_url='login')
 def home (request):
@@ -27,6 +28,7 @@ def loginUser(request):
             if user.user_type=='3':
                 return redirect('home')
         else:
+            messages.success(request, "Username and password not match .")
             return redirect('login')
     return render(request,'login.html')
 

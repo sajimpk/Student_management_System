@@ -18,11 +18,7 @@
                     <h5 class="card-title"><strong>Student  Deteils</strong></h5>
                 </div>
                 <div class="card-body">
-                    {% if messages %}
-                {% for message in messages %}
-                    <h2 style="color:red; text-align: center;" class="{{ message.tags }}">{{ message }}</h2>
-                {% endfor %}
-            {% endif %}
+                    {% include 'includes/massege.html'%}
                     <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-group row">
