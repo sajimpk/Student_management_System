@@ -4,17 +4,8 @@
    <div class="page-header">
       <div class="row">
          <div class="col">
-            {% if messages %}
-                {% for message in messages %}
-                    <h2 style="color:red; text-align: center;" class="{{ message.tags }}">{{ message }}</h2>
-                {% endfor %}
-            {% else %}
             <h3 class="page-title">Profile</h3>
-            <ul class="breadcrumb">
-               <li class="breadcrumb-item"><a>Dashboard</a></li>
-               <li class="breadcrumb-item active">Profile</li>
-            </ul>
-            {% endif %}
+            {% include 'includes/massege.html'%}
          </div>
       </div>
    </div>
@@ -45,7 +36,7 @@
 
                </div>
                <div class="col-auto profile-btn">
-                  <a href="#" class="btn btn-primary">
+                  <a href="{% url 'update_profile' %}" class="btn btn-primary">
                      Edit
                   </a>
                </div>
@@ -69,8 +60,6 @@
                         <div class="card-body">
                            <h5 class="card-title d-flex justify-content-between">
                               <span>Personal Details</span>
-                              <a class="edit-link" data-toggle="modal" href="#edit_personal_details"><i
-                                    class="far fa-edit mr-1"></i>Edit</a>
                            </h5>
                            <div class="row">
                               <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Name</p>
@@ -79,6 +68,11 @@
                            <div class="row">
                               <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Email ID</p>
                               <p class="col-sm-9"><a>{{user.email}}</a>
+                              </p>
+                           </div>
+                           <div class="row">
+                              <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Username</p>
+                              <p class="col-sm-9"><a>{{user.username}}</a>
                               </p>
                            </div>
                            {% if user.user_type == '2' %}
@@ -124,24 +118,25 @@
                   </div>
                </div>
             </div>
-            <div id="password_tab" class="tab-pane fade">
-               <div class="card">
+            <div id="password_tab" class="tab-pane fade" >
+               <div class="card" >
                   <div class="card-body">
-                     <h5 class="card-title">Change Password</h5>
+                     <h5 class="card-title" style="text-align: center; text-decoration: underline;">Change Password</h5>
                      <div class="row">
                         <div class="col-md-10 col-lg-6">
-                           <form>
+                           <form action="{% url 'pass_update' %}" method="post" enctype="multipart/form-data">
+                              {% csrf_token %}
                               <div class="form-group">
                                  <label>Old Password</label>
-                                 <input type="password" class="form-control">
+                                 <input type="password" class="form-control" name="old_pass" required>
                               </div>
                               <div class="form-group">
                                  <label>New Password</label>
-                                 <input type="password" class="form-control">
+                                 <input type="password" class="form-control" name="pass" required>
                               </div>
                               <div class="form-group">
                                  <label>Confirm Password</label>
-                                 <input type="password" class="form-control">
+                                 <input type="password" class="form-control" name="con_pass" required>
                               </div>
                               <button class="btn btn-primary" type="submit">Save Changes</button>
                            </form>

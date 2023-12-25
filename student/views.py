@@ -70,7 +70,7 @@ def add_student(request):
                 messages.success(request, "Student added")
                 return redirect(request.META['HTTP_REFERER'])
     else:
-        messages.success(request, "You can't access ")
+        messages.error(request, "You can't access ")
         return redirect('home')
     return render(request,'student/add.html',locals())
 
@@ -93,7 +93,7 @@ def student_view(request):
 
         return render(request,'student/students.html',locals())
     else:
-        messages.success(request, "You can't access ")
+        messages.error(request, "You can't access ")
         return redirect('home')
     
 @login_required(login_url='login')
@@ -158,9 +158,9 @@ def student_update(request,id):
                     messages.success(request, "Student update")
                 
         except Exception as r:
-            messages.success(request, r)
+            messages.warning(request, r)
     else:
-        messages.success(request, "You can't access ")
+        messages.error(request, "You can't access ")
         return redirect('home')
     return render(request,'student/update.html',locals())
 
@@ -176,7 +176,7 @@ def student_delete(request,id):
         user.delete()
         messages.success(request, "Student delete success")
     else:
-        messages.success(request, "You can't access ")
+        messages.error(request, "You can't access ")
         return redirect('home')
     return redirect('student_view')
 
