@@ -15,7 +15,20 @@
       <!--  datatable -->
       <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
       <link rel="stylesheet" href="{% static 'assets/plugins/datatables/datatables.min.css' %}">
-   </head>
+      <style>
+         table {
+           border-collapse: collapse;
+           width: 100%;
+         }
+         
+         th, td {
+           padding: 8px;
+         }
+         
+         tr:nth-child(even) {
+           background-color: #D6EEEE;
+         }
+         </style>
    <body>
       <div class="main-wrapper">
          {% include 'includes/header.html'%}
