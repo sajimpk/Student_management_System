@@ -8,7 +8,7 @@
                <span>Main Menu</span>
             </li>
             <li>
-               <a href="{% url 'dashbord' %}"><i class="fas fa-user-graduate"></i> <span>Dashboard</span></a>
+               <a href="{% url 'hod_dashbord' %}"><i class="fas fa-user-graduate"></i> <span>Dashboard</span></a>
             </li>
             <li class="submenu">
                <a href="#"><i class="fas fa-user-graduate"></i> <span> Students</span> <span
@@ -22,40 +22,40 @@
                <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> Teachers</span> <span
                      class="menu-arrow"></span></a>
                <ul>
-                  <li><a href="teacher-details.html">Teacher View</a></li>
-                  <li><a href="add-teacher.html">Teacher Add</a></li>
+                  <li><a href="{% url 'staff_view'%}">Teacher View</a></li>
+                  <li><a href="{% url 'add_staff'%}">Teacher Add</a></li>
                </ul>
             </li>
             <li class="submenu">
                <a href="#"><i class="fas fa-building"></i> <span> Departments</span> <span
                      class="menu-arrow"></span></a>
                <ul>
-                  <li><a href="departments.html">Department View</a></li>
-                  <li><a href="add-department.html">Department Add</a></li>
+                  <li><a href="{% url 'viw_deperment'%}">Department View</a></li>
+                  <li><a href="{% url 'add_deperment'%}">Department Add</a></li>
                </ul>
             </li>
             <li class="submenu">
                <a href="#"><i class="fas fa-building"></i> <span> sesseon</span> <span
                      class="menu-arrow"></span></a>
                <ul>
-                  <li><a href="departments.html">sesseon View</a></li>
-                  <li><a href="add-department.html">sesseon Add</a></li>
+                  <li><a href="{% url 'viw_sesson'%}">sesseon View</a></li>
+                  <li><a href="{% url 'add_sesson'%}">sesseon Add</a></li>
                </ul>
             </li>
             <li class="submenu">
                <a href="#"><i class="fas fa-building"></i> <span> Semister </span> <span
                      class="menu-arrow"></span></a>
                <ul>
-                  <li><a href="departments.html">Semister View</a></li>
-                  <li><a href="add-department.html">Semister Add</a></li>
+                  <li><a href="{% url 'viw_semister'%}">Semister View</a></li>
+                  <li><a href="{% url 'add_semister'%}">Semister Add</a></li>
                </ul>
             </li>
             <li class="submenu">
                <a href="#"><i class="fas fa-book-reader"></i> <span> Subjects</span> <span
                      class="menu-arrow"></span></a>
                <ul>
-                  <li><a href="subjects.html">Subject View</a></li>
-                  <li><a href="add-subject.html">Subject Add</a></li>
+                  <li><a href="{% url 'viw_subject'%}">Subject View</a></li>
+                  <li><a href="{% url 'add_subject'%}">Subject Add</a></li>
                </ul>
             </li>
             <li>
@@ -89,7 +89,7 @@
                <span>Main Menu</span>
             </li>
             <li>
-               <a href="{% url 'dashbord' %}"><i class="fas fa-user-graduate"></i> <span>Dashboard</span></a>
+               <a href=""><i class="fas fa-user-graduate"></i> <span>Dashboard</span></a>
             </li>
             <li class="submenu">
                <a href="#"><i class="fas fa-user-graduate"></i> <span> Students</span> <span
@@ -154,7 +154,7 @@
                <span>Main Menu</span>
             </li>
             <li>
-               <a href="{% url 'dashbord' %}"><i class="fas fa-user-graduate"></i> <span>Dashboard</span></a>
+               <a href="{% url 'student_dashbord' %}"><i class="fas fa-user-graduate"></i> <span>Dashboard</span></a>
             </li>
             <li>
                <a href="holiday.html"><i class="fas fa-user-graduate"></i> <span>Feadback</span></a>

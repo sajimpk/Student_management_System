@@ -11,7 +11,12 @@ from django.contrib import messages
 def home (request):
     if request.user.is_authenticated:
         user = request.user
-        return redirect('dashbord')
+        if user.user_type=='1':
+            return redirect('hod_dashbord')
+        if user.user_type=='2':
+            return redirect('staff_dashbord')
+        if user.user_type=='3':
+            return redirect('student_dashbord')
     else:
         return redirect('login')
 
@@ -25,11 +30,11 @@ def loginUser(request):
         if user:
             login(request,user)
             if user.user_type=='1':
-                return redirect('dashbord')
+                return redirect('hod_dashbord')
             if user.user_type=='2':
-                return redirect('dashbord')
+                return redirect('staff_dashbord')
             if user.user_type=='3':
-                return redirect('dashbord')
+                return redirect('student_dashbord')
         else:
             messages.warning(request, "Username and password incorrect .")
             return redirect('login')

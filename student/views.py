@@ -6,6 +6,14 @@ from django.contrib.auth.decorators import login_required
 import os
 
 # Create your views here.
+def dashbord(request):
+    if request.user.user_type=='3':
+        pass
+    else:
+        messages.error(request,'somthin error')
+        return redirect('home')
+    return render(request,'student/dashbord.html')
+
 @login_required(login_url='login')
 def add_student(request):
     if request.user.user_type=='1':
@@ -30,10 +38,10 @@ def add_student(request):
             sess_id = request.POST.get('sess')
             Semister_id = request.POST.get('Semister')
             if CoustomUser.objects.filter(email = email).exists():
-                messages.success(request, " Email Already Taken.")
+                messages.warning(request, " Email Already Taken.")
                 return redirect('add_student')
             elif CoustomUser.objects.filter(username=username).exists():
-                messages.success(request, " Username Already Taken.")
+                messages.warning(request, " Username Already Taken.")
                 return redirect('add_student')
             else:
                 admin = CoustomUser(
@@ -90,11 +98,10 @@ def student_view(request):
                 detel = student.objects.all()
             else:
                 detel = student.objects.all()
-
-        return render(request,'student/students.html',locals())
     else:
         messages.error(request, "You can't access ")
         return redirect('home')
+    return render(request,'student/students.html',locals())
     
 @login_required(login_url='login')
 def student_update(request,id):
