@@ -13,3 +13,9 @@ class staff(models.Model):
     gender  = models.CharField(choices = gen,max_length=8)
     def __str__(self) -> str:
         return self.admin.username +' || '+ self.admin.first_name + ' ' + self.admin.last_name
+class Subject(models.Model):
+    name = models.CharField(max_length = 20)
+    Semister = models.ForeignKey(semister,on_delete=models.CASCADE)
+    staff = models.ForeignKey(staff,on_delete=models.CASCADE)
+    def __str__(self) -> str:
+        return self.name +' || '+ self.Semister.name + ' || ' + self.staff.admin.first_name

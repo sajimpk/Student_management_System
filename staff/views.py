@@ -5,14 +5,15 @@ from .models import *
 from django.contrib.auth.decorators import login_required
 import os
 # Create your views here.
+@login_required(login_url='login')
 def dashbord(request):
     if request.user.user_type=='2':
         pass
     else:
-        messages.error(request,'somthin error')
-        return redirect('home')
+        return redirect('error')
     return render(request,'staff/home.html')
 
+@login_required(login_url='login')
 def add_staff(request):
     if request.user.user_type=='1':
         if request.method=='POST':
@@ -56,28 +57,15 @@ def add_staff(request):
                 messages.success(request, "Staff added")
                 return redirect(request.META['HTTP_REFERER'])
     else:
-        messages.error(request, "You can't access ")
-        return redirect('home')
+        return redirect('error')
     return render(request,'staff/add_staff.html')
 
 @login_required(login_url='login')
 def staff_view(request):
     if request.user.user_type=='1':
-        if request.method == 'GET':
-            src = request.GET.get('search')
-            if src:
-                detel = staff.objects.filter(phone__icontains=src)
-                if detel:
-                    pass
-                else:
-                    detel = staff.objects.filter(father_name__icontains=src)
-            elif src==None:
-                detel = staff.objects.all()
-            else:
-                detel = staff.objects.all()
+        detel = staff.objects.all()
     else:
-        messages.error(request, "You can't access ")
-        return redirect('home')
+        return redirect('error')
     return render(request,'staff/view_staff.html',locals())
 
 @login_required(login_url='login')
@@ -120,12 +108,12 @@ def staff_update(request,id):
                     messages.success(request, "Update Success")
                 
         except Exception as r:
-            messages.warning(request, r)
+            return redirect('error')
     else:
-        messages.error(request, "You can't access ")
-        return redirect('home')
+        return redirect('error')
     return render(request,'staff/staff_update.html',locals())
 
+@login_required(login_url='login')
 def staff_delete(request,id):
     if request.user.user_type=='1':
         user = staff.objects.get(id = id)
@@ -138,6 +126,5 @@ def staff_delete(request,id):
         user.delete()
         messages.success(request, "Staff delete success")
     else:
-        messages.error(request, "You can't access ")
-        return redirect('home')
+        return redirect('error')
     return redirect('staff_view')

@@ -9,8 +9,8 @@ class student(models.Model):
     father_num = models.IntegerField()
     mother_name = models.CharField(max_length=35)
     Address = models.TextField(max_length=60)
-    Deparment = models.ForeignKey(deparment,on_delete=models.DO_NOTHING)
-    sess = models.ForeignKey(sesson,on_delete=models.DO_NOTHING)
-    Semister = models.ForeignKey(semister,on_delete=models.DO_NOTHING)
+    Deparment = models.ForeignKey(deparment,on_delete=models.CASCADE)
+    sess = models.ForeignKey(sesson,on_delete=models.CASCADE)
+    Semister = models.ForeignKey(semister,on_delete=models.CASCADE)
     def __str__(self) -> str:
         return self.admin.username +' || '+ self.admin.first_name + ' ' + self.admin.last_name

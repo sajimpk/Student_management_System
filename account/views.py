@@ -88,8 +88,7 @@ def pass_update(request):
         else:
             messages.warning(request, "confrom password not match")
     else:
-        messages.error(request, "error")
-    return redirect('dashbord')
+        return redirect('error')
         
 
 @login_required(login_url='login')
@@ -101,7 +100,7 @@ def profile(request):
         else:
             pass
     except Exception as e:
-        messages.error(request, e)
+        return redirect('error')
     return render(request,'profile.html',locals())
 
 @login_required(login_url='login')
@@ -109,3 +108,6 @@ def log_out(request):
     logout(request)
     messages.success(request,'log out success')
     return redirect('login')
+
+def error(request):
+    return render(request,"error.html")

@@ -14,6 +14,7 @@ urlpatterns = [
     path('semister_delete/<int:id>/',semister_delete,name="semister_delete"),
     path('deperment_delete/<int:id>/',deperment_delete,name="deperment_delete"),
     path('sesson_delete/<int:id>/',sesson_delete,name="sesson_delete"),
-    path('subject_delete/<int:id>/',subject_delete,name="subject_delete")
+    path('subject_delete/<int:id>/',subject_delete,name="subject_delete"),
+    path('subject-edit/<int:id>/',edit_subject,name="subject_edit"),
 
 ]

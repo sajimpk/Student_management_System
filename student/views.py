@@ -6,12 +6,12 @@ from django.contrib.auth.decorators import login_required
 import os
 
 # Create your views here.
+@login_required(login_url='login')
 def dashbord(request):
     if request.user.user_type=='3':
         pass
     else:
-        messages.error(request,'somthin error')
-        return redirect('home')
+        return redirect('error')
     return render(request,'student/dashbord.html')
 
 @login_required(login_url='login')
@@ -78,29 +78,15 @@ def add_student(request):
                 messages.success(request, "Student added")
                 return redirect(request.META['HTTP_REFERER'])
     else:
-        messages.error(request, "You can't access ")
-        return redirect('home')
+        return redirect('error')
     return render(request,'student/add.html',locals())
 
 @login_required(login_url='login')
 def student_view(request):
     if request.user.user_type=='1':
-
-        if request.method == 'GET':
-            src = request.GET.get('search')
-            if src:
-                detel = student.objects.filter(phone__icontains=src)
-                if detel:
-                    pass
-                else:
-                    detel = student.objects.filter(father_name__icontains=src)
-            elif src==None:
-                detel = student.objects.all()
-            else:
-                detel = student.objects.all()
+        detel = student.objects.all()
     else:
-        messages.error(request, "You can't access ")
-        return redirect('home')
+        return redirect('error')
     return render(request,'student/students.html',locals())
     
 @login_required(login_url='login')
@@ -167,10 +153,10 @@ def student_update(request,id):
         except Exception as r:
             messages.warning(request, r)
     else:
-        messages.error(request, "You can't access ")
-        return redirect('home')
+        return redirect('error')
     return render(request,'student/update.html',locals())
 
+@login_required(login_url='login')
 def student_delete(request,id):
     if request.user.user_type=='1':
         user = student.objects.get(id = id)
@@ -183,8 +169,7 @@ def student_delete(request,id):
         user.delete()
         messages.success(request, "Student delete success")
     else:
-        messages.error(request, "You can't access ")
-        return redirect('home')
+        return redirect('error')
     return redirect('student_view')
 
 

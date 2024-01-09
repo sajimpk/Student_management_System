@@ -1,0 +1,64 @@
+{% extends "base.html"%}
+{% block content %}
+
+<div class="content container-fluid">
+
+    <div class="page-header">
+        <div class="row">
+            <div class="col">
+                <h3 class="page-title">ADD Subject</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title"><strong>Deteils</strong></h5>
+                </div>
+                <div class="card-body">
+                    {% include 'includes/massege.html'%}
+                    <form  method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Name</label>
+                            <div class="col-md-10">
+                                <input type="text" value="{{sub.name}}" class="form-control" name="name" placeholder="Add Subject">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2" style="margin-top: 5px;">Semister</label>
+                            <div class="col-md-10">
+                                <select class="form-control" name="smister" required>
+                                    <option disabled selected>{{sub.Semister.name}}</option>
+                                    {% for i in semis %}
+                                    <option value="{{i.id}}">{{i.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2" style="margin-top: 5px;">Teacher</label>
+                            <div class="col-md-10">
+                                <select class="form-control" name="staff" required>
+                                    <option disabled selected>{{sub.staff.admin.first_name}} {{sub.staff.admin.last_name}}</option>
+                                    {% for i in teacher %}
+                                    <option value="{{i.id}}">{{i.admin.first_name}} {{i.admin.last_name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-10"></label>
+                            <div class="col-md-2">
+                                <button type="submit"class="col-form-label" style="padding: 5px 25px;">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    {% endblock %}

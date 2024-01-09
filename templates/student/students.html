@@ -44,13 +44,13 @@
                            <td>
                               <h2 class="table-avatar">
                                  {% if i.admin.profile_pic %}
-                                 <a href="student-details.html" class="avatar avatar-sm mr-2"><img
+                                 <a href="{{i.admin.profile_pic.url}}" class="avatar avatar-sm mr-2"><img
                                        class="avatar-img rounded-circle" src="{{i.admin.profile_pic.url}}"
                                        alt=""></a>
                                  {% endif %}
                               </h2>
                            </td>
-                           <td>{{i.admin.first_name}}</td>
+                           <td>a{{i.admin.first_name}}</td>
                            <td>{{i.Semister}}</td>
                            <td>{{i.Deparment}}</td>
                            <td>{{i.father_name}}</td>
