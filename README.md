@@ -1,10 +1,10 @@
 # student management
-#admin
+# admin
 pass: admin
 user : admin
-#staff
+# staff
 user: staff
 pass: staff
-#student
+# student
 pass: student
 user: student
