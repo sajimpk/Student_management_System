@@ -1,0 +1,145 @@
+{% extends "base.html"%}
+{% block content %}
+
+<div class="content container-fluid">
+
+    <div class="page-header">
+        <div class="row">
+            <div class="col">
+                <h3 class="page-title">ADD Student</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title"><strong>Student  Deteils</strong></h5>
+                </div>
+                <div class="card-body">
+                    {% include 'includes/massege.html'%}
+                    <form  method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">First Name</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" name="frist_name" placeholder="First Name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Last Name</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" name="last_name" placeholder="Last Name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Email</label>
+                            <div class="col-md-10">
+                                <input type="email" class="form-control" name="email" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Username</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" name="username" placeholder="Username">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Password</label>
+                            <div class="col-md-10">
+                                <input type="password" class="form-control" name="password" placeholder="Password">
+                            </div>
+                        </div> 
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">image</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="file" name="image" accept="image">
+                            </div>
+                        </div>
+                        <!-- student model$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ -->
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Student Phone</label>
+                            <div class="col-md-10">
+                                <input type="number" class="form-control" name="phone" placeholder="Phone">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Roll</label>
+                            <div class="col-md-10">
+                                <input type="number" class="form-control" name="roll" placeholder="Roll">
+                            </div>
+                        </div>
+                       
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Father Name</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" name="father_name" placeholder="Father Name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Father's Number</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="number" name="father_num" placeholder="Father Phone">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Mother Name</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" name="mother_name" placeholder="Mother Name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Address</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" name="Address" placeholder="Address">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Deparment</label>
+                            <div class="col-md-10">
+                                <select class="form-control" name="Deparment">
+                                    <option disabled selected>-- Select --</option>
+                                    {% for i in dpr %}
+                                    <option value="{{i.id}}">{{i.name}}</option>
+                                    {% endfor %}
+                                  
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">sesson</label>
+                            <div class="col-md-10">
+                                <select class="form-control" name="sess">
+                                    <option disabled selected>-- Select --</option>
+                                    {% for i in ses %}
+                                    <option value="{{i.id}}">{{i.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Semister</label>
+                            <div class="col-md-10">
+                                <select class="form-control" name="Semister">
+                                    <option disabled selected>-- Select --</option>
+                                    {% for i in semi %}
+                                    <option value="{{i.id}}">{{i.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-10"></label>
+                            <div class="col-md-2">
+                                <button type="submit"class="col-form-label" style="padding: 5px 25px;">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    {% endblock %}
